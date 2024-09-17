@@ -18,6 +18,7 @@ import helmet from 'helmet';
 import connectMongo from 'connect-mongo';
 
 const dbURL = process.env.DB_URL;
+const secret = process.env.SECRET;
 
 mongoose.connect(dbURL);
 const db = mongoose.connection;
@@ -43,7 +44,7 @@ const store = connectMongo.create({
     mongoUrl: dbURL,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret!'
+        secret
     }
 });
 
@@ -54,7 +55,7 @@ store.on('error', function (e) {
 const sessionconfig = {
 	store,
 	name: 'session',
-	secret: 'thisissomesecretrighthere',
+	secret,
 	resave: false,
 	saveUninitialised: true,
 	cookie: {
