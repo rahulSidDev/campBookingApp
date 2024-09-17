@@ -17,7 +17,7 @@ import userRoutes from './routes/users.js';
 import helmet from 'helmet';
 import connectMongo from 'connect-mongo';
 
-const dbURL = 'mongodb://localhost:27017/yelp-camp';
+const dbURL = process.env.DB_URL;
 
 mongoose.connect(dbURL);
 const db = mongoose.connection;
